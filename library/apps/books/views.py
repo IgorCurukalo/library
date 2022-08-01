@@ -19,6 +19,8 @@ from apps.books.serializers import PublishingHouseSerializers
 
 
 class PublishingHouseAction(ViewSet):
+    basename = 'PublishingHouse'
+
     def list (self, request):
         quaryset = PublishingHouse.objects.all()
         serializer = PublishingHouseSerializers(quaryset, many=True)
