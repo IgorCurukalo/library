@@ -1,18 +1,43 @@
-from rest_framework import status
-from rest_framework.views import APIView
+# from rest_framework import status
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
+#     # RetrieveAPIView
+# from rest_framework.mixins import CreateModelMixin
+# from apps.books.models import PublishingHouse
+#     # , Book, Author
+# from apps.books.serializers import PublishingHouseSerializers
+#     # , BookSerializers, AuthorSerializers
+
+
+# from rest_framework.mixins import CreateModelMixin
+from django.shortcuts  import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
-    # RetrieveAPIView
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.viewsets import ViewSet
 from apps.books.models import PublishingHouse
-    # , Book, Author
 from apps.books.serializers import PublishingHouseSerializers
-    # , BookSerializers, AuthorSerializers
 
 
-class PublishingHouseAction(CreateModelMixin, ListAPIView):
-    queryset = PublishingHouse.objects.all()
-    serializer_class = PublishingHouseSerializers
+class PublishingHouseAction(ViewSet):
+    def list (self, request):
+        quaryset = PublishingHouse.objects.all()
+        serializer = PublishingHouseSerializers(quaryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request, pk):
+        quaryset = PublishingHouse.objects.all()
+        handler = get_object_or_404(quaryset, pk=pk)
+        serializer = PublishingHouseSerializers(handler, many=True)
+        return Response(serializer.data)
+
+
+
+
+
+#
+# class PublishingHouseAction(CreateModelMixin, ListAPIView):
+#     queryset = PublishingHouse.objects.all()
+#     serializer_class = PublishingHouseSerializers
 
     # def get_queryset(self):
     #     filter_value = self.request.get('value')
