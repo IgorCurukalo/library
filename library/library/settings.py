@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'library.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'jobfinder',
+        'NAME': 'library',
         'USER': 'postgres',
         'PASSWORD': '1621',
         'HOST': 'localhost',
@@ -106,6 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+AUTH_USER_MODEL = 'acount.User'
 
 
 # Internationalization
