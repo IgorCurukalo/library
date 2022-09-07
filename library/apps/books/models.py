@@ -74,3 +74,6 @@ class Author(models.Model):
 
 class BooksInAuthor(admin.TabularInline):
     model = Book.authors.through
+
+
+

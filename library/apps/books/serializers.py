@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from apps.books.models import PublishingHouse, Book, Author
-
+from apps.books.signals import log_book_save, post_save
 
 class PublishingHouseSerializers(serializers.ModelSerializer):
     class Meta:
