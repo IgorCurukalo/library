@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from apps.books.models import PublishingHouse, Book, Author
+from apps.books.models import Book, Author, PublishingHouse
+from signals.signals import *
 
 
 class PublishingHouseSerializers(serializers.ModelSerializer):
