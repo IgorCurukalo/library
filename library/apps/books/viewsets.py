@@ -12,27 +12,35 @@
 
 # from rest_framework.mixins import CreateModelMixin
 from django.shortcuts  import get_object_or_404
+from pip._vendor.pygments.lexer import include
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from apps.books.models import PublishingHouse
 from apps.books.serializers import PublishingHouseSerializers
-
+from apps.books.tasks import inform_new
 
 
 class PublishingHouseAction(ViewSet):
-    basename = 'PublishingHouse'
+    queryset = PublishingHouse.objects.all()
 
-    def list (self, request):
-        quaryset = PublishingHouse.objects.all()
-        serializer = PublishingHouseSerializers(quaryset, many=True)
+    def list(self, request):
+        request.session['user'] = request.user
+        serializer = PublishingHouseSerializers(self.queryset, many=True)
         return Response(serializer.data)
 
-    def create(self, request, pk):
-        quaryset = PublishingHouse.objects.all()
-        handler = get_object_or_404(quaryset, pk=pk)
+    def retrieve(self, request, pk):
+        handler = get_object_or_404(self.queryset, pk=pk)
         serializer = PublishingHouseSerializers(handler, many=True)
         return Response(serializer.data)
 
+    def create(self, request):
+        serializer = PublishingHouseSerializers(data=request.data)
+        serializer.is_valid(raise_exeption=True)
+        serializer.save(serializer)
+
+        inform_new.delay()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 

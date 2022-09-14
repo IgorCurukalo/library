@@ -1,5 +1,5 @@
 from rest_framework.routers import SimpleRouter
-from apps.books.views import PublishingHouseAction
+from apps.books.viewsets import PublishingHouseAction
 
 router = SimpleRouter()
 
