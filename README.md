@@ -7,7 +7,7 @@
 2. []
 
 
-##logging
+## logging
 library/library/library/settings.py  - добавили логи debag
 
 ## signallog
