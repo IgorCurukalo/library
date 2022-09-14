@@ -2,8 +2,8 @@
 
 ## Оглавление
 
-0. [logging](#logging)
-1. [signallog](#signallog)
+0. [branch logging](#logging)
+1. [branch signallog](#signallog)
 2. []
 
 
