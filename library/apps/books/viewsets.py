@@ -18,32 +18,32 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from apps.books.models import PublishingHouse
 from apps.books.serializers import PublishingHouseSerializers
-from apps.books.tasks import inform_new
+# from apps.books.tasks import inform_new
 
 
 class PublishingHouseAction(ViewSet):
     queryset = PublishingHouse.objects.all()
+    serializer = PublishingHouseSerializers
 
     def list(self, request):
         request.session['user'] = request.user
         serializer = PublishingHouseSerializers(self.queryset, many=True)
         return Response(serializer.data)
 
+
     def retrieve(self, request, pk):
         handler = get_object_or_404(self.queryset, pk=pk)
         serializer = PublishingHouseSerializers(handler, many=True)
         return Response(serializer.data)
 
+
+
     def create(self, request):
-        serializer = PublishingHouseSerializers(data=request.data)
+        serializer = self.get_parsers(data=request.POST)
         serializer.is_valid(raise_exeption=True)
-        serializer.save(serializer)
+        serializer.save(**serializer.data)
 
-        inform_new.delay()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-
 
 #
 # class PublishingHouseAction(CreateModelMixin, ListAPIView):

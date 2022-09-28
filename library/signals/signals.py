@@ -3,7 +3,7 @@ from django.core.signals import request_finished, request_started
 from django.dispatch import receiver
 import logging
 from apps.books.models import Book, BooksInAuthor, PublishingHouse, Author
-
+from apps.books.tasks import inform_new
 
 count = 0
 

@@ -1,14 +1,14 @@
-# from django.urls import path
-# from apps.books.views import PublishingHouseAction
-#     # , PublishingHouseRetrieve
-#     # PublishingHouseAPIView, PublishingHouseCreateAPIView, BookAPIView, BookCreateAPIView, AuthorAPIView, AuthorCreateAPIView
-#
-#
-# urlpatterns = [
-#     path('publishing_house/', PublishingHouseAction.as_view()),
-#     # path('publishing_house_/', PublishingHouseRetrieve.as_view()),
-#
+from django.urls import path
+from apps.books.views import AuthorView
 from apps.books.router import router as book_router
+    # , PublishingHouseRetrieve
+    # PublishingHouseAPIView, PublishingHouseCreateAPIView, BookAPIView, BookCreateAPIView, AuthorAPIView, AuthorCreateAPIView
+
+
+urlpatterns = [
+    path('author/', AuthorView.as_view()),
+
+]
 
 urlpatterns = book_router.urls
 
