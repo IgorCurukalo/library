@@ -8,6 +8,7 @@ import logging
 def main():
     logging.basicConfig(filename='main.log', level=logging.INFO)
     logging.info('Started')
+
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library.settings')
     try:
@@ -24,3 +25,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

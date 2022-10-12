@@ -18,7 +18,6 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from apps.books.models import PublishingHouse
 from apps.books.serializers import PublishingHouseSerializers
-# from apps.books.tasks import inform_new
 
 
 class PublishingHouseAction(ViewSet):
@@ -37,12 +36,10 @@ class PublishingHouseAction(ViewSet):
         return Response(serializer.data)
 
 
-
     def create(self, request):
         serializer = self.get_parsers(data=request.POST)
         serializer.is_valid(raise_exeption=True)
         serializer.save(**serializer.data)
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 #

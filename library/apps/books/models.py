@@ -74,4 +74,17 @@ class BooksInAuthor(admin.TabularInline):
     model = Book.authors.through
 
 
+class CountBooks(models.Model):
+    count = models.IntegerField(verbose_name='Количество книг')
+    date_add = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+    is_daleted = models.BooleanField(default=False, verbose_name='Удалено')
+
+    def __int__(self):
+        return self.count
+
+    class Meta:
+        verbose_name = 'Количество'
+        verbose_name_plural = 'Количества'
+
+
 

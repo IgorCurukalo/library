@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, PublishingHouse, Author, BooksInAuthor
+from .models import Book, PublishingHouse, Author, BooksInAuthor, CountBooks
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -64,6 +64,23 @@ class AuthorAdmin(admin.ModelAdmin):
     ]
 
 
+class CountBooksAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id', 'count', 'date_add', 'is_daleted'
+    )
+    list_display_links = ('id', 'count')
+    search_fields = ('count',)
+    list_editable = ('is_daleted',)
+    list_filter = ('count', 'is_daleted')
+    fieldsets = (
+        (None, {
+            'fields': ('count',)
+        }),
+    )
+
+
 admin.site.register(Book, BookAdmin)
 admin.site.register(PublishingHouse, PublishingHouseAdmin)
 admin.site.register(Author, AuthorAdmin)
+admin.site.register(CountBooks, CountBooksAdmin)

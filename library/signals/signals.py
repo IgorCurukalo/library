@@ -3,7 +3,7 @@ from django.core.signals import request_finished, request_started
 from django.dispatch import receiver
 import logging
 from apps.books.models import Book, BooksInAuthor, PublishingHouse, Author
-from apps.books.tasks import inform_new
+from apps.books.tasks import insert_count
 
 count = 0
 
@@ -18,6 +18,7 @@ def log_book_save_post(instance, created, **kwargs):
     if created:
         global count
         count += 1
+        insert_count()
         logging.info(f"Количество сохранений книг: {count}")
         logging.info(f"post_save - Пользователь сохранил книгу:{instance.book_name}")
         print(f"Количество сохранений книг: {count}")
@@ -91,6 +92,7 @@ def log_book_save_pre(instance, **kwargs):
 def log_book_save_post(instance, created, **kwargs):
     if created:
         logging.info(f"post_save - Пользователь сохранил автора:{instance.last_name}")
+        insert_count()
         print(f"post_save - Пользователь сохранил автора:{instance.last_name}")
 
 @receiver(pre_delete, sender=Author)

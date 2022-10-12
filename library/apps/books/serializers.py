@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from apps.books.models import Book, Author, PublishingHouse
 from signals.signals import *
-from apps.books.tasks import inform_new
 
 
 class PublishingHouseSerializers(serializers.ModelSerializer):
@@ -17,7 +16,6 @@ class PublishingHouseSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        inform_new.delay()
         return PublishingHouse.objects.create(**validated_data)
 
 
